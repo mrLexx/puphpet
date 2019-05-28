@@ -1,0 +1,48 @@
+{% set uniqid = uniqid ?? uniqid('pool_') %}
+{% set idBase = "php-fpm_pools-#{uniqid}" %}
+{% set nameBase = "php[fpm_pools][#{uniqid}]" %}
+
+{% set selectedIni = (pool.ini is defined and pool.ini is not empty)
+    ? pool.ini
+    : [] %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12">
+        <label for="{{ idBase }}-ini-displayer">
+            Conf Settings
+        </label>
+        <select id="{{ idBase }}-ini-displayer"
+                multiple class="form-control select-tags-user-input"
+                data-target-container="{{ idBase }}-ini"
+                data-target-name="{{ nameBase }}[ini]">
+            {% set flattened = [] %}
+            {% for ini, values in available_fpm_pool_ini %}
+                {% set flattened = flattened|merge([ini]) %}
+                <option value="{{ ini }}"
+                    {% if ini in selectedIni|keys %}selected{% endif %}>{{ ini }}</option>
+            {% endfor %}
+
+            {% for name, value in selectedIni %}
+                {% if name not in flattened %}
+                    <option value="{{ name }}" selected>{{ name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+
+        <div id="{{ idBase }}-ini" class="hidden">
+            {% for name, value in selectedIni %}
+                {% set value = (name == 'prefix' and value == 'CHANGE_ME') ? uniqid : value %}
+                <input type="hidden" name="{{ nameBase }}[ini][{{ name }}]"
+                       data-option-name="{{ name }}" value="{{ value }}" />
+            {% endfor %}
+        </div>
+
+        <div class="help-block">
+            Make sure to define <code>prefix</code> and
+            <code>security.limit_extensions</code>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

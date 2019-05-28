@@ -1,33 +1,16 @@
 security:
-    encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: sha1
-            iterations: 2
-            encode_as_base64: false
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    access_control:
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     providers:
         in_memory:
-            memory:
-                users:
-                    user:  { password: '%user_password%', roles: [ 'ROLE_USER' ] }
-                    admin: { password: '%admin_password%', roles: [ 'ROLE_ADMIN' ] }
+            memory: ~
 
     firewalls:
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-        main:
-            pattern:    ^/
-            anonymous:  ~
 
-    # we currently need no access control at all in the project
-    access_control:
-        # would require https for everything (properly not very useful on dev machines):
-        #- { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-
-        #- { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        default:
+            anonymous: ~
+            http_basic: ~

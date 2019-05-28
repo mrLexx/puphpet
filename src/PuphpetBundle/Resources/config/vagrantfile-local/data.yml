@@ -1,0 +1,53 @@
+target: ~
+
+vm:
+    provider:
+        local:
+            box: bento/ubuntu-16.04
+            box_url: ~
+            box_version: ~
+            chosen_virtualizer: virtualbox
+            virtualizers:
+                virtualbox:
+                    modifyvm:
+                        natdnshostresolver1: false
+                    showgui: 0
+                vmware:
+                    numvcpus: 1
+                parallels:
+                    linked_clone: 0
+                    check_guest_tools: 0
+                    update_guest_tools: 0
+            machines: []
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
+    synced_folder: []
+    usable_port_range:
+        start: 10200
+        stop: 10500
+    post_up_message: ''
+ssh:
+    host: ~
+    port: ~
+    private_key_path: ~
+    username: vagrant
+    guest_port: ~
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
+    insert_key: false
+vagrant:
+    host: detect
+proxy:
+    http: ~
+    https: ~
+    ftp: ~
+    no_proxy: ''

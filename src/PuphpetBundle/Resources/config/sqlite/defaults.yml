@@ -1,0 +1,8 @@
+install: 0
+
+databases:
+    database1:
+        name: dbname
+        owner: www-data
+        group: www-data
+        sql_file: ''

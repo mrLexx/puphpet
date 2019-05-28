@@ -1,0 +1,72 @@
+instance_types:
+    t2.nano: 1 CPU, 0.5 Memory, EBS Only
+    t2.micro: 1 CPU, 1 Memory, EBS Only
+    t2.small: 1 CPU, 2 Memory, EBS Only
+    t2.medium: 2 CPU, 4 Memory, EBS Only
+    t2.large: 2 CPU, 8 Memory, EBS Only
+    m4.large: 2 CPU, 8 Memory, EBS Only
+    m4.xlarge: 4 CPU, 16 Memory, EBS Only
+    m4.2xlarge: 8 CPU, 32 Memory, EBS Only
+    m4.4xlarge: 16 CPU, 64 Memory, EBS Only
+    m4.10xlarge: 40 CPU, 160 Memory, EBS Only
+    m3.medium: 1 CPU, 3.75 Memory, 1 x 4 GB SSD
+    m3.large: 2 CPU, 7.5 Memory, 1 x 32 GB SSD
+    m3.xlarge: 4 CPU, 15 Memory, 2 x 40 GB SSD
+    m3.2xlarge: 8 CPU, 30 Memory, 2 x 80 GB SSD
+    c4.large: 2 CPU, 3.75 Memory, EBS Only
+    c4.xlarge: 4 CPU, 7.5 Memory, EBS Only
+    c4.2xlarge: 8 CPU, 15 Memory, EBS Only
+    c4.4xlarge: 16 CPU, 30 Memory, EBS Only
+    c4.8xlarge: 36 CPU, 60 Memory, EBS Only
+    c3.large: 2 CPU, 3.75 Memory, 2 x 16 GB SSD
+    c3.xlarge: 4 CPU, 7.5 Memory, 2 x 40 GB SSD
+    c3.2xlarge: 8 CPU, 15 Memory, 2 x 80 GB SSD
+    c3.4xlarge: 16 CPU, 30 Memory, 2 x 160 GB SSD
+    c3.8xlarge: 32 CPU, 60 Memory, 2 x 320 GB SSD
+    g2.2xlarge: 8 CPU, 15 Memory, 1 x 60 GB SSD
+    g2.8xlarge: 32 CPU, 60 Memory, 2 x 120 GB SSD
+    r3.large: 2 CPU, 15.25 Memory, 1 x 32 GB SSD
+    r3.xlarge: 4 CPU, 30.5 Memory, 1 x 80 GB SSD
+    r3.2xlarge: 8 CPU, 61 Memory, 1 x 160 GB SSD
+    r3.4xlarge: 16 CPU, 122 Memory, 1 x 320 GB SSD
+    r3.8xlarge: 32 CPU, 244 Memory, 2 x 320 GB SSD
+    i2.xlarge: 4 CPU, 30.5 Memory, 1 x 800 GB SSD
+    i2.2xlarge: 8 CPU, 61 Memory, 2 x 800 GB SSD
+    i2.4xlarge: 16 CPU, 122 Memory, 4 x 800 GB SSD
+    i2.8xlarge: 32 CPU, 244 Memory, 8 x 800 GB SSD
+    d2.xlarge: 4 CPU, 30.5 Memory, 3 x 2000 GB
+    d2.2xlarge: 8 CPU, 61 Memory, 6 x 2000 GB
+    d2.4xlarge: 16 CPU, 122 Memory, 12 x 2000 GB
+    d2.8xlarge: 36 CPU, 244 Memory, 24 x 2000 GB
+
+regions:
+    ap-northeast-1: Asia Pacific (Tokyo)
+    ap-northeast-2: Asia Pacific (Seoul)
+    ap-southeast-1: Asia Pacific (Singapore)
+    ap-southeast-2: Asia Pacific (Sydney)
+    eu-central-1: EU (Frankfurt)
+    eu-west-1: EU (Ireland)
+    sa-east-1: South America (Sao Paulo)
+    us-east-1: US East (Northern Virginia)
+    us-west-1: US West (Northern California)
+    us-west-2: US West (Oregon)
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false
+
+empty_machine:
+    id: ~
+    hostname: ~
+    ssh_username: ubuntu
+    keypair_name: ~
+    private_key_path: ~
+    region: us-east-1
+    instance_type: t2.small
+    ami: ami-7b386c11
+    subnet_id: ~
+    elastic_ip: ~
+    security_groups: []
+    tags: []

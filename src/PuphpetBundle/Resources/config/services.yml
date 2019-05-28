@@ -1,0 +1,55 @@
+services:
+    randomlib:
+        class: RandomLib\Factory
+
+    puphpet.extension.manager:
+        class: PuphpetBundle\Extension\Manager
+        calls:
+        # deploy target
+            - [ addExtension, [ 'vagrantfile-local' ] ]
+            - [ addExtension, [ 'vagrantfile-rackspace' ] ]
+            - [ addExtension, [ 'vagrantfile-linode' ] ]
+            - [ addExtension, [ 'vagrantfile-aws' ] ]
+            - [ addExtension, [ 'vagrantfile-gce' ] ]
+            - [ addExtension, [ 'vagrantfile-digitalocean' ] ]
+        # system
+            - [ addExtension, [ 'server' ] ]
+            - [ addExtension, [ 'users-groups' ] ]
+            - [ addExtension, [ 'locale' ] ]
+            - [ addExtension, [ 'firewall' ] ]
+            - [ addExtension, [ 'resolv' ] ]
+            - [ addExtension, [ 'cron' ] ]
+        # web server
+            - [ addExtension, [ 'nginx' ] ]
+            - [ addExtension, [ 'apache' ] ]
+            - [ addExtension, [ 'letsencrypt' ] ]
+        # language
+            - [ addExtension, [ 'php' ] ]
+            - [ addExtension, [ 'xdebug' ] ]
+            - [ addExtension, [ 'blackfire' ] ]
+            - [ addExtension, [ 'wpcli' ] ]
+            - [ addExtension, [ 'drush' ] ]
+            - [ addExtension, [ 'ruby' ] ]
+            - [ addExtension, [ 'python' ] ]
+            - [ addExtension, [ 'nodejs' ] ]
+        # database
+            - [ addExtension, [ 'mysql' ] ]
+            - [ addExtension, [ 'mariadb' ] ]
+            - [ addExtension, [ 'postgresql' ] ]
+            - [ addExtension, [ 'mongodb' ] ]
+            - [ addExtension, [ 'redis' ] ]
+            - [ addExtension, [ 'sqlite' ] ]
+        # mail
+            - [ addExtension, [ 'mailhog' ] ]
+        # work queue
+            - [ addExtension, [ 'beanstalkd' ] ]
+            - [ addExtension, [ 'rabbitmq' ] ]
+        # search server
+            - [ addExtension, [ 'elastic-search' ] ]
+
+    puphpet.twig.base_extension:
+        class: PuphpetBundle\Twig\BaseExtension
+        arguments:
+            - '@randomlib'
+        tags:
+            - { name: twig.extension }

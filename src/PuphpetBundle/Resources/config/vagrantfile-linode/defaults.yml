@@ -1,0 +1,36 @@
+target: ~
+
+vm:
+    provider:
+        linode:
+            token: LINODE_API_KEY
+            ssh_key_name: Vagrant
+            distribution: Ubuntu 16.04 LTS
+            machines:
+                machine1:
+                    id: linode1
+                    hostname: linode1.puphpet
+                    datacenter: dallas
+                    plan: 1024
+                    label: linode1-puphpet
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
+    synced_folder:
+        folder1:
+            id: webroot
+            source: ./
+            target: /var/www
+            nfs: false
+    post_up_message: ''
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: '~/.ssh/id_rsa'
+    public_key_path: '~/.ssh/id_rsa.pub'

@@ -1,0 +1,91 @@
+{% set uniqid = uniqid ?? uniqid('rule_') %}
+{% set idBase = "firewall-rules-#{uniqid}" %}
+{% set nameBase = "firewall[rules][#{uniqid}]" %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-port">
+            Port(s)
+        </label>
+        <select id="{{ idBase }}-port"
+               name="{{ nameBase }}[port][]"
+               multiple class="form-control select-tags-editable">
+            {% if rule.port is defined and rule.port is iterable %}
+                {% for port in rule.port %}
+                    <option selected value="{{ port }}">{{ port }}</option>
+                {% endfor %}
+            {% elseif rule.port is defined %}
+                <option selected value="{{ rule.port }}">{{ rule.port }}</option>
+            {% endif %}
+        </select>
+        <div class="help-block">
+            Port to affect, can be multiple.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-priority">
+            Priority
+        </label>
+        <input type="text" id="{{ idBase }}-priority"
+               name="{{ nameBase }}[priority]"
+               placeholder="100" class="form-control"
+               value="{{ rule.priority ? rule.priority : '100' }}" />
+        <div class="help-block">
+            <p>Lower priority takes effect first.</p>
+
+            <p><strong>Format must be 3 digits: 000, 111, 011, 999</strong></p>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <div class="clearfix"><label>Protocol</label></div>
+
+        <div class="radio">
+            <input type="radio" id="{{ idBase }}-proto-tcp"
+                   name="{{ nameBase }}[proto]"
+                   value="tcp"
+                   {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %} />
+            <label for="{{ idBase }}-proto-tcp">
+                TCP
+            </label>
+        </div>
+
+        <div class="radio">
+            <input type="radio" id="{{ idBase }}-proto-udp"
+                   name="{{ nameBase }}[proto]"
+                   value="udp"
+                   {% if rule.proto == 'udp' or not rule.proto %}checked{% endif %} />
+            <label for="{{ idBase }}-proto-udp">
+                UDP
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <div class="clearfix"><label>Action</label></div>
+
+        <div class="radio">
+            <input type="radio" id="{{ idBase }}-action-accept"
+                   name="{{ nameBase }}[action]"
+                   value="accept"
+                   {% if rule.action == 'accept' or not rule.action %}checked{% endif %} />
+            <label for="{{ idBase }}-action-accept">
+                accept
+            </label>
+        </div>
+
+        <div class="radio">
+            <input type="radio" id="{{ idBase }}-action-drop"
+                   name="{{ nameBase }}[action]"
+                   value="drop"
+                   {% if rule.action == 'drop' or not rule.action %}checked{% endif %} />
+            <label for="{{ idBase }}-action-drop">
+                drop
+            </label>
+        </div>
+    </div>
+</div>

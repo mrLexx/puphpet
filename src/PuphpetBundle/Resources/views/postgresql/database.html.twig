@@ -1,0 +1,35 @@
+{% set uniqid = uniqid ?? uniqid('database_') %}
+{% set idBase = "postgresql-databases-#{uniqid}" %}
+{% set nameBase = "postgresql[databases][#{uniqid}]" %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-dbname">
+            DB Name
+        </label>
+        <input type="text" id="{{ idBase }}-dbname"
+               name="{{ nameBase }}[dbname]"
+               placeholder="database_name" class="form-control"
+               value="{{ database.dbname }}" />
+        <div class="help-block">
+            This is the ID used within the <code>Vagrantfile</code>.
+            It is only used for your internal identification.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-owner">
+            Owner
+        </label>
+        <input type="text" id="{{ idBase }}-owner"
+               name="{{ nameBase }}[owner]"
+               placeholder="root" class="form-control"
+               value="{{ database.owner }}" />
+        <div class="help-block">
+            Choose user defined above. If blank, owner is root user.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

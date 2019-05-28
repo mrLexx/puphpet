@@ -1,0 +1,5 @@
+empty_database:
+    name: ~
+    owner: www-data
+    group: ~
+    sql_file: ~

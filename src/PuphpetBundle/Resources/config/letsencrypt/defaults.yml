@@ -1,0 +1,7 @@
+install: 1
+
+settings:
+    email: ~
+    webserver_service: ~
+
+domains: { }

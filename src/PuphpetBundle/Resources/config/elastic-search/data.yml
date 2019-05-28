@@ -1,0 +1,7 @@
+install: 0
+
+settings:
+    version: ~
+    java_install: true
+
+instances: {  }

@@ -1,4 +1,0 @@
-install: 0
-
-settings:
-    conf_port: 6379

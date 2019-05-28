@@ -1,0 +1,23 @@
+install: 0
+
+settings:
+    version: 5.7
+    override_options: {}
+
+users:
+    user1:
+        name: dbuser
+        password: 123
+
+databases:
+    database1:
+        name: dbname
+        collate: utf8_general_ci
+        sql: ~
+
+grants:
+    grant1:
+        user: dbuser
+        table: '*.*'
+        privileges:
+            - ALL

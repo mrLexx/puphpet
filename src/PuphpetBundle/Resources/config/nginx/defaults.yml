@@ -1,0 +1,53 @@
+install: 1
+
+settings:
+    version: present
+    default_vhost: 1
+    proxy_buffers: 4 256k
+    proxy_buffer_size: 128k
+    proxy_connect_timeout: 600s
+    proxy_send_timeout: 600s
+    proxy_read_timeout: 600s
+    names_hash_bucket_size: 128
+
+upstreams: []
+
+proxies: []
+
+vhosts:
+    vhost1:
+        server_name: awesome.test
+        server_aliases:
+            - www.awesome.test
+        www_root: /var/www/awesome
+        listen_port: 80
+        ssl: false
+        rewrites: []
+        locations:
+            php_html:
+                www_root: /var/www/awesome
+                location: /
+                index_files:
+                    - index.html
+                    - index.php
+                try_files:
+                    - $uri
+                    - $uri/
+                    - /index.php$is_args$args
+                location_cfg_append: []
+            php_php:
+                www_root: /var/www/awesome
+                location: '~ \.php$'
+                index_files:
+                    - index.php
+                try_files:
+                    - $uri
+                    - $uri/
+                fastcgi: '127.0.0.1:9000'
+                fastcgi_index: index.php
+                fastcgi_split_path: '^(.+?\.php)(/.*)$'
+                fast_cgi_params_extra:
+                    - SCRIPT_FILENAME $document_root$fastcgi_script_name
+                set:
+                    - $path_info $fastcgi_path_info
+                location_cfg_append: []

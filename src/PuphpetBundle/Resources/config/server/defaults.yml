@@ -1,0 +1,6 @@
+install: 1
+
+packages:
+    - bash-completion
+    - htop
+    - vim

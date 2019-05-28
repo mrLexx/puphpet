@@ -1,5 +1,0 @@
-install: 0
-
-settings:
-    java_install: true
-    autoupgrade: true

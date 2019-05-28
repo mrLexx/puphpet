@@ -1,0 +1,109 @@
+{% set uniqid = uniqid ?? uniqid('user_') %}
+{% set idBase = "rabbitmq-users-#{uniqid}" %}
+{% set nameBase = "rabbitmq[users][#{uniqid}]" %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12">
+        <div class="clearfix"><label>Admin</label></div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="{{ idBase }}-admin"
+                   name="{{ nameBase }}[admin]"
+                   value="1"
+                   {% if user.admin is defined and user.admin %}checked{% endif %} />
+            <label for="{{ idBase }}-admin">
+                Make user admin
+            </label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-name">
+            Username
+        </label>
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
+               placeholder="admin" class="form-control"
+               value="{{ user.name }}" />
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-password">
+            Password
+        </label>
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
+               placeholder="123" class="form-control"
+               value="{{ user.password }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-tags">
+            Tags
+        </label>
+        <select id="{{ idBase }}-tags"
+                name="{{ nameBase }}[tags][]"
+                multiple class="form-control select-tags-editable">
+        {% if user.tags is defined %}
+            {% for tag in user.tags %}
+                <option selected value="{{ tag }}">{{ tag }}</option>
+            {% endfor %}
+        {% endif %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Permissions</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs sortable">
+                <li class="add">
+                    <a href="{{ path('puphpet.rabbitmq.permission', {'userId': uniqid}) }}"
+                       data-toggle="add-block">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for index, permission in user.permissions %}
+                    {% set blockId = "#{idBase}-permissions-#{index}" %}
+                    {% set blockName = "#{nameBase}[permissions][#{index}]" %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#{{ blockId }}"
+                           data-toggle="tab">{{ index }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#{{ blockId }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a permission
+                </div>
+                {% for index, permission in user.permissions %}
+                    {% include 'PuphpetBundle:rabbitmq:permission.html.twig' with {
+                        'userId': uniqid,
+                        'permission': permission,
+                        'uniqid': index,
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

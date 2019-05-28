@@ -1,0 +1,90 @@
+{% set uniqid = uniqid ?? uniqid('machine_') %}
+{% set idBase = "vagrantfile-vm-provider-linode-machines-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][provider][linode][machines][#{uniqid}]" %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-id">
+            Internal Identifier
+        </label>
+        <input type="text" id="{{ idBase }}-id"
+               name="{{ nameBase }}[id]"
+               placeholder="linode1" class="form-control"
+               value="{{ machine.id }}" />
+        <div class="help-block">
+            This is the ID used within the <code>Vagrantfile</code>. It is only used
+            for your internal identification.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-hostname">
+            Hostname
+        </label>
+        <input type="text" id="{{ idBase }}-hostname"
+               name="{{ nameBase }}[hostname]"
+               placeholder="linode1.puphpet" class="form-control"
+               value="{{ machine.hostname }}" />
+        <div class="help-block">
+            The hostname the machine should have.
+            <a href="http://stackoverflow.com/a/3523068/446766"
+               target="_blank">This answer lists all valid characters.</a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-label">
+            Server Label
+        </label>
+        <input type="text" id="{{ idBase }}-label"
+               name="{{ nameBase }}[label]"
+               placeholder="linode1-puphpet" class="form-control"
+               value="{{ machine.label }}" />
+        <div class="help-block">
+            Name your Linode server as it will appear in the Linode Control Panel.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-datacenter">
+            Datacenter Location
+        </label>
+        <select id="{{ idBase }}-datacenter"
+               name="{{ nameBase }}[datacenter]"
+               class="form-control select-tag">
+            {% for key, datacenter in datacenters %}
+                <option value="{{ key }}"
+                    {% if key == machine.datacenter %}selected{% endif %}>{{ datacenter }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Choose the one closest to you, or your target audience!
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-plan">
+            Server Size
+        </label>
+        <select id="{{ idBase }}-plan"
+               name="{{ nameBase }}[plan]"
+               class="form-control select-tag">
+            {% for plan, name in plans %}
+                <option value="{{ plan }}"
+                    {% if plan == machine.plan %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <a href="https://www.linode.com/pricing"
+               target="_blank">Pricing information</a>.
+            Linode charges by the hour, but also shows what a full month would cost.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

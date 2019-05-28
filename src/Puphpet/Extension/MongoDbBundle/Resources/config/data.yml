@@ -1,7 +1,0 @@
-install: 0
-
-settings:
-    auth: 1
-    port: 27017
-
-databases: []

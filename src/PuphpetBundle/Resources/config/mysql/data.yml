@@ -1,0 +1,11 @@
+install: 0
+settings:
+    version: 5.7
+    root_password: 123
+    override_options: {}
+
+users: []
+
+databases: []
+
+grants: []

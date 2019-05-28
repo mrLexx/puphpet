@@ -1,0 +1,36 @@
+target: ~
+
+vm:
+    provider:
+        rackspace:
+            username: RACKSPACE_USERNAME
+            api_key: RACKSPACE_API_KEY
+            image: d97ba69f-b733-45be-8d60-4e415f4b0992
+            machines:
+                machine1:
+                    id: rackspace1
+                    hostname: rackspace1.puphpet
+                    server_name: rackspace1-puphpet
+                    region: dfw
+                    size: 1GB Standard Instance
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
+    synced_folder:
+        folder1:
+            id: webroot
+            source: ./
+            target: /var/www
+            nfs: false
+    post_up_message: ''
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: '~/.ssh/id_rsa'
+    public_key_path: '~/.ssh/id_rsa.pub'

@@ -1,0 +1,45 @@
+images:
+    -
+        image: centos-7-0-x64
+        long_name: CentOS 7
+    -
+        image: ubuntu-14-04-x64
+        long_name: Ubuntu Trusty 14.04 LTS
+    -
+        image: ubuntu-16-04-x64
+        long_name: Ubuntu Xenial 16.04 LTS
+
+sizes:
+    512mb: 512MB / 1 CPU / 20GB SSD DISK / 1TB TRANSFER
+    1gb: 1GB / 1 CPU / 30GB SSD DISK / 2TB TRANSFER
+    2gb: 2GB / 2 CPUS / 40GB SSD DISK / 3TB TRANSFER
+    4gb: 4GB / 2 CPUS / 60GB SSD DISK / 4TB TRANSFER
+    8gb: 8GB / 4 CPUS / 80GB SSD DISK / 5TB TRANSFER
+    16gb: 16GB / 8 CPUS / 160GB SSD DISK / 6TB TRANSFER
+    32gb: 32GB / 12 CPUS / 320GB SSD DISK / 7TB TRANSFER
+    48gb: 48GB / 16 CPUS / 480GB SSD DISK / 8TB TRANSFER
+    64gb: 64GB / 20 CPUS / 640GB SSD DISK / 9TB TRANSFER
+
+regions:
+    - Amsterdam 3
+    - Bangalore 1
+    - Frankfurt 1
+    - London 1
+    - New York 1
+    - New York 3
+    - San Francisco 1
+    - San Francisco 2
+    - Singapore 1
+    - Toronto 1
+
+empty_synced_folder:
+    id: ~
+    source: ~
+    target: ~
+    nfs: false
+
+empty_machine:
+    id: ~
+    hostname: ~
+    region: New York 1
+    size: 1gb

@@ -1,0 +1,28 @@
+target: ~
+
+vm:
+    provider:
+        digitalocean:
+            image: ubuntu-14-04-x64
+            token: ~
+            ssh_key_name: ~
+            setup: true
+            ipv6: false
+            private_networking: false
+            backups_enabled: false
+            machines: [ ]
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
+    synced_folder: [ ]
+    post_up_message: ''
+ssh:
+    username: ~
+    private_key_path: ~
+    public_key_path: ~

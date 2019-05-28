@@ -1,0 +1,43 @@
+install: 0
+
+settings:
+    version: 2.4
+    sendfile: 0
+
+modules:
+    - proxy_fcgi
+    - rewrite
+
+vhosts:
+    vhost1:
+        servername: awesome.test
+        serveraliases:
+            - www.awesome.test
+        docroot: /var/www/awesome
+        port: 80
+        setenvif:
+            - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
+        directories:
+            php_html:
+                path: /var/www/awesome
+                directoryindex: index.php index.html
+                options:
+                    - Indexes
+                    - FollowSymlinks
+                    - MultiViews
+                allow_override:
+                    - All
+                require:
+                    - all granted
+                provider: directory
+            php_php:
+                path: \.php$
+                sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                provider: filesmatch
+        ssl: 0
+        ssl_cert: ~
+        ssl_key: ~
+        ssl_chain: ~
+        ssl_certs_dir: ~
+        ssl_protocol: ~
+        ssl_cipher: ~

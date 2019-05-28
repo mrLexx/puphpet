@@ -1,0 +1,59 @@
+{% set uniqid = uniqid ?? uniqid('version_') %}
+{% set idBase = "python-versions-#{uniqid}" %}
+{% set nameBase = "python[versions][#{uniqid}]" %}
+
+{% set virtualenv = (selected_version.virtualenv is defined and selected_version.virtualenv) ? true : false %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-version">
+            Choose Version
+        </label>
+        <select id="{{ idBase }}-version"
+                name="{{ nameBase }}[version]"
+                class="form-control select-tag-editable">
+            {% if selected_version.version and selected_version.version not in available_versions %}
+                <option value="{{ selected_version.version }}" selected>{{ selected_version.version }}</option>
+            {% endif %}
+            {% for available in available_versions %}
+                <option value="{{ available }}"
+                    {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <p>Each Python will be installed system-wide and can be accessed as<br />
+                <code>$ python{version}</code>. eg: <code>$ python3.4.0</code>.</p>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <div class="clearfix"><label>Virtualenv</label></div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="{{ idBase }}-virtualenv"
+                   name="{{ nameBase }}[virtualenv]"
+                   value="1"
+                   {% if virtualenv %}checked{% endif %} />
+            <label for="{{ idBase }}-virtualenv">
+                Install virtualenv
+            </label>
+            <div class="help-block">
+                <p>Each virtualenv will be installed system-wide and can be accessed
+                as <code>$ virtualenv-{version}</code>.</p>
+
+                <p>eg: <code>$ virtualenv-3.4.0</code>.</p>
+
+                <p>There is currently a small bug where <code>virtualenv</code> is
+                    not being installed on initial <code>$ vagrant up</code>. The
+                    solution is simple: just run <code>$ vagrant provision</code>
+                    and <code>virtualenv</code> will be installed for your chosen
+                    Python version. Fix coming soon!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

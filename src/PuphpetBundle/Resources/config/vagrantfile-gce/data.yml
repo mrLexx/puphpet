@@ -1,0 +1,25 @@
+target: ~
+
+vm:
+    provider:
+        gce:
+            project_id: ~
+            client_email: ~
+            key_location: ~
+            image: ubuntu-1604-xenial-v20161013
+            machines: []
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
+    synced_folder: []
+    post_up_message: ''
+ssh:
+    username: ~
+    private_key_path: ~
+    public_key_path: ~

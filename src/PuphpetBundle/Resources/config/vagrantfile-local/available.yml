@@ -1,0 +1,90 @@
+virtualizers:
+    -
+        name: virtualbox
+        long_name: VirtualBox
+        description: |
+            Free! Not as performant as VMWare or Parallels, but it is free!
+            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download VirtualBox here</a>.
+        description_extra: ~
+        performance: 1
+        base_ip: 192.168.56
+    -
+        name: vmware_fusion
+        long_name: VMWare Fusion
+        description: |
+            More performant than VirtualBox.
+            <a href="http://send.onenetworkdirect.net/z/33484/CD207605/" target="_blank">Requires purchase of VMWare Fusion</a>
+        description_extra: |
+            (affiliate link - help support this free service)
+            and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+        performance: 3
+        base_ip: 192.168.57
+    -
+        name: vmware_workstation
+        long_name: VMWare Workstation
+        description: |
+            More performant than VirtualBox.
+            <a href="http://send.onenetworkdirect.net/z/33485/CD207605/" target="_blank">Requires purchase of VMWare Workstation</a>
+        description_extra: |
+            (affiliate link - help support this free service)
+            and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
+        performance: 3
+        base_ip: 192.168.57
+    -
+        name: parallels
+        long_name: Parallels Desktop
+        description: |
+            More performant than VirtualBox.
+            <a href="http://www.tkqlhce.com/click-7569625-11516363" target="_blank">Requires purchase of Parallels Desktop 9</a>
+        description_extra: |
+            (affiliate link - help support this free service)
+            and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
+        performance: 3
+        base_ip: 192.168.58
+
+boxes:
+    -
+        box: bento/centos-6
+        name: CentOS 6 x64
+    -
+        box: bento/centos-7
+        name: CentOS 7 x64
+    -
+        box: bento/ubuntu-14.04
+        name: Ubuntu Trusty 14.04 LTS x64
+    -
+        box: bento/ubuntu-16.04
+        name: Ubuntu Xenial 16.04 LTS x64
+    -
+        box: bento/ubuntu-16.04-i386
+        name: Ubuntu Xenial 16.04 LTS i386
+
+empty_machine:
+    id: ~
+    hostname: ~
+    memory: 512
+    cpus: 1
+    network:
+        private_network: 192.168.56.101
+        forwarded_port: [ ]
+
+empty_forwarded_port:
+    host: ~
+    guest: ~
+
+empty_synced_folder:
+    id: ~
+    source: ~
+    target: ~
+    sync_type: default
+    owner: 'vagrant'
+    group: 'vagrant'
+    rsync:
+        args:
+            - '--verbose'
+            - '--archive'
+            - '-z'
+        exclude:
+            - '.vagrant/'
+            - '.git/'
+        auto: true

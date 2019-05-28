@@ -1,0 +1,38 @@
+target: ~
+
+vm:
+    provider:
+        digitalocean:
+            image: ubuntu-16-04-x64
+            token: DIGITAL_OCEAN_TOKEN
+            ssh_key_name: Vagrant
+            setup: true
+            ipv6: false
+            private_networking: false
+            backups_enabled: false
+            machines:
+                machine1:
+                    id: digitalocean1
+                    hostname: digitalocean1.puphpet
+                    region: New York 1
+                    size: 1gb
+    provision:
+        puppet:
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
+            options:
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+    synced_folder:
+        folder1:
+            id: webroot
+            source: ./
+            target: /var/www
+            nfs: false
+    post_up_message: ''
+ssh:
+    username: PRIVATE_KEY_USER
+    private_key_path: '~/.ssh/id_rsa'
+    public_key_path: '~/.ssh/id_rsa.pub'

@@ -1,0 +1,68 @@
+{% set uniqid = uniqid ?? uniqid('grant_') %}
+{% set idBase = "mariadb-grants-#{uniqid}" %}
+{% set nameBase = "mariadb[grants][#{uniqid}]" %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-user">
+            User
+        </label>
+        <input type="text" id="{{ idBase }}-user"
+               name="{{ nameBase }}[user]"
+               placeholder="username" class="form-control"
+               value="{{ grant.user }}" />
+        <div class="help-block">
+            User must be defined in section above!
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-table">
+            Database
+        </label>
+        <input type="text" id="{{ idBase }}-table"
+               name="{{ nameBase }}[table]"
+               placeholder="*.*" class="form-control"
+               value="{{ grant.table }}" />
+        <div class="help-block">
+            Can be <code>*.*</code> for all databases/tables,
+            <code>{database}.*</code> for all tables in a specific
+            database, or <code>{database}.{table}</code> for a
+            specific table in a specific database.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-privileges">
+            Privileges
+        </label>
+        <select id="{{ idBase }}-privileges"
+                name="{{ nameBase }}[privileges][]"
+                multiple class="form-control select-tags-editable">
+            {% set flattened = [] %}
+            {% for type, privileges in available_privileges %}
+                <optgroup label="{{ type }}">
+                    {% for privilege in privileges %}
+                        {% set flattened = flattened|merge([privilege]) %}
+                        <option value="{{ privilege }}"
+                            {% if privilege in grant.privileges %}selected{% endif %}>{{ privilege }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+
+            {% for privilege in grant.privileges %}
+                {% if privilege not in flattened %}
+                    <option value="{{ privilege }}" selected>{{ privilege }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Choose "All" or a mix of the others.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

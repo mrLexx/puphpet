@@ -1,0 +1,10 @@
+install: 0
+
+settings:
+    port: 5672
+
+users: []
+
+vhosts: []
+
+plugins: []
